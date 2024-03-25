@@ -1,41 +1,37 @@
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { TextValue, addTodos, removeTodo, toggleValue, fechTodos } from './store/todoSlice';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
-  const { textVal, todos } = useSelector((state) => state.sliceTodos);
-  const dispatch = useDispatch();
-  console.log(todos);
-  useEffect(() => {
-    dispatch(fechTodos());
-  }, [dispatch]);
+  const [passord, setPassord] = useState('');
+  const [TheRequest, setTheRequest] = useState(false);
+
+  function generatePassword() {
+    if (TheRequest) {
+      const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let password = '';
+      for (let i = 0; i < 26; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+        setPassord(password);
+      }
+      console.log(password);
+      return password;
+    } else {
+      alert('нажмите  на  чек');
+    }
+  }
 
   return (
     <div>
-      <input type='text' onChange={(e) => dispatch(TextValue(e.target.value))} value={textVal} />
-      <button onClick={() => dispatch(addTodos())}>доавить</button>
-      <hr />
-      <ul className='todos_container'>
-        {todos &&
-          todos.map((elem) => (
-            <div key={elem.id} className='todo_container'>
-              <li>
-                <input
-                  type='checkbox'
-                  name=''
-                  checked={elem.complited}
-                  className='chekVal'
-                  onChange={() => dispatch(toggleValue(elem.id))}
-                />
-                <span>{elem.title} </span>
-                <button type='button' onClick={() => dispatch(removeTodo(elem.id))}>
-                  удалить
-                </button>
-              </li>
-            </div>
-          ))}
-      </ul>
+      <span>{passord}</span>
+      <input type='checkbox' name='' id='' onChange={() => setTheRequest(!TheRequest)} checked={TheRequest} />
+      <button
+        onClick={() => {
+          generatePassword();
+        }}
+      >
+        {' '}
+        генерация ключа рандом{' '}
+      </button>
     </div>
   );
 }
