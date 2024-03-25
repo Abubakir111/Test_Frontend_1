@@ -1,0 +1,25 @@
+.todos_container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+li {
+  list-style: none;
+}
+.chekVal:checked ~ span {
+  text-decoration: line-through;
+}
+.todo_container {
+  width: max-content;
+  border-radius: 5px;
+  border: 1px solid silver;
+  padding: 2px 3px;
+}
+span {
+  /* min-width: 150px; */
+  width: 300px;
+  height: max-content;
+  font-size: 12px;
+  display: inline-block;
+}
